@@ -1,0 +1,46 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "mwcomtypes.idl";
+
+[
+  object,
+  uuid("BCBABCF6-D77B-4E30-BC20-DD72ADCBB080"),
+  dual,
+  helpstring("IClass1 Interface"),
+  pointer_default(unique)
+]
+interface IClass1 : IDispatch
+{
+  [propget, id(1), helpstring("property MWFlags")]
+  HRESULT MWFlags([out, retval] IMWFlags** ppvFlags);
+  [propput, id(1), helpstring("property MWFlags")]
+  HRESULT MWFlags([in] IMWFlags* pvFlags);
+
+  [id(2), helpstring("Method loadForecasting")]
+  HRESULT loadForecasting([in] long nargout, [in,out] VARIANT* y, [in] VARIANT date, [in] 
+                          VARIANT temperature, [in] VARIANT isHoliday);
+
+  [propget, id(3), helpstring("property help")]
+  HRESULT help([in] BSTR funcname, [out, retval] BSTR* helptext);
+
+};
+[
+  uuid("F6E75F41-4369-4152-9E69-94A948FB363E"),
+  version(1.0),
+  helpstring("loadForecasting 1.0 Type Library")
+]
+library loadForecasting
+{
+  importlib("stdole32.tlb");
+  importlib("stdole2.tlb");
+  importlib("mwcomutil.tlb");
+
+  [
+    uuid("604C58F6-E609-4B53-ACFF-F1C4A211013F"),
+    helpstring("Class1 Class")
+  ]
+  coclass Class1
+  {
+    [default] interface IClass1;
+  };
+};
